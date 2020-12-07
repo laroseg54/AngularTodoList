@@ -1,13 +1,20 @@
-<div class="view">
-  <input 	class			= "toggle"
-          type			= "checkbox"
-          name			= "fait"
-  />
-  <label 	class="texte"></label>
-  <button class="destroy"></button>
-</div>
-<form>
-  <input  #newTextInput
-          name    = "newTextInput"
-          class   = "edit"/>
-</form>
+<li [ngClass]="{'editing': edit, 'completed': itemData.isDone}">
+  <div class="view">
+    <input 	class			= "toggle"
+            type			= "checkbox"
+            name			= "fait"
+            [(ngModel)] = "itemData.isDone"
+    />
+    <label 	class="texte"   (dblclick)="edit=true">{{itemData.label}}</label>
+    <button class="destroy" (click)="delete()" ></button>
+  </div>
+  <form   (submit)="label = newTextInput.value"> 
+    <input   #newTextInput
+            name    = "newTextInput"
+            [ngModel] = "label"
+            (blur) = "label = newTextInput.value;"
+            class   = "edit"/>
+            {{newTextInput.focus()}}
+            
+  </form>
+</li>

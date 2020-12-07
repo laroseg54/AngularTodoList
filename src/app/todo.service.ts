@@ -1,3 +1,4 @@
+  
 import { Injectable } from '@angular/core';
 import {TodoListData} from './dataTypes/TodoListData';
 import {Observable, BehaviorSubject} from 'rxjs';
@@ -44,6 +45,8 @@ export class TodoService {
       label: tdl.label, // ou on peut écrire: ...tdl,
       items: tdl.items.filter( I => items.indexOf(I) === -1 )
     });
+
+   
   }
 
 }
