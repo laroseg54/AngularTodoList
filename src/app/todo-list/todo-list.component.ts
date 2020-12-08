@@ -56,7 +56,9 @@ export class TodoListComponent implements OnInit {
 
     appendItem(label: string) {
 
-        this.todoService.appendItems({ label, isDone: false });
+        if(label){
+            this.todoService.appendItems({ label, isDone: false });
+        }
     }
 
     itemDone(item: TodoItemData, done: boolean) {
@@ -78,6 +80,12 @@ export class TodoListComponent implements OnInit {
         else{
             this.todoService.setItemsDone(true,...this.itemsNotDone);
         }
+    }
+
+    removeAll(items : TodoItemData[]){
+       
+            this.todoService.removeItems(...items);
+        
     }
 
     ngOnInit() {

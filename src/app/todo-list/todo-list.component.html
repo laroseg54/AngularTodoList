@@ -1,6 +1,8 @@
 <section class="todoapp">
   <header class="header">
+  
     <h1>{{label}}</h1>
+   
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
       <input  #newTodoInput
               name        = "newTodoInput"
@@ -8,6 +10,9 @@
               placeholder = "Que faire?"
               autofocus />
     </form>
+    <button class="clearAll" *ngIf ="items.length>0" (click)="removeAll(items)" ><svg class="bi" width="26" height="26" fill="currentColor">
+      <use xlink:href="assets/bootstrap-icons.svg#trash"/>
+    </svg></button>
   </header>
   <section class="main">
     <input  class="toggle-all"
@@ -34,7 +39,8 @@
         <a  [ngClass]="{selected: filtre==='completed'}" (click)="filtre='completed'">Complétés</a>
       </li>
     </ul>
-    <button class="clear-completed" *ngIf ="itemsDone.length>0" >Supprimer cochées</button>
+    <button class="clear-completed" *ngIf ="itemsDone.length>0" (click)="removeAll(itemsDone)" >Supprimer cochées</button>
+    
   </footer>
 </section>
 <hr/>
