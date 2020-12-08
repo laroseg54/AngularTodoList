@@ -9,12 +9,21 @@ export class TodoService {
 
   private todoListSubject = new BehaviorSubject<TodoListData>( {label: 'TodoList', items: []} );
 
+
   constructor() { }
 
   getTodoListDataObservable(): Observable<TodoListData> {
     return this.todoListSubject.asObservable();
   }
 
+  undoRedo(todo : TodoListData){
+    this.todoListSubject.next( {
+      label: todo.label,
+      items: todo.items
+    });
+  }
+
+ 
   setItemsLabel(label: string, ...items: TodoItemData[] ) {
     const tdl = this.todoListSubject.getValue();
     this.todoListSubject.next( {

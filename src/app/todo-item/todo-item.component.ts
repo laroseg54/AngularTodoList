@@ -1,5 +1,5 @@
-import {Component, ElementRef, EventEmitter, Host, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {TodoItemData} from '../dataTypes/TodoItemData';
+import { Component, ElementRef, EventEmitter, Host, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { TodoItemData } from '../dataTypes/TodoItemData';
 
 
 @Component({
@@ -9,42 +9,48 @@ import {TodoItemData} from '../dataTypes/TodoItemData';
 })
 export class TodoItemComponent implements OnInit {
 
-  @Input() private todoItem : TodoItemData;
-  @ViewChild("newTextInput",{static:false}) labelInput : ElementRef;
+  @Input() private todoItem: TodoItemData;
+  @ViewChild("newTextInput", { static: false }) labelInput: ElementRef;
   @Output() deleteEvent = new EventEmitter<TodoItemData>();
-  private edition : boolean;
+  @Output() labelEvent = new EventEmitter<{ lbl: string, data: TodoItemData }>();
+  @Output() doneEvent = new EventEmitter<{ b: boolean, data: TodoItemData }>();
+  private edition: boolean;
 
 
-  constructor() { 
-   
+  constructor() {
+
   }
 
   get label(): string {
     return this.todoItem.label;
-}
-  set label(val : string){
-    this.todoItem.label = val;
+  }
+  set label(val: string) {
+    if (val !== this.todoItem.label) {
+      this.todoItem.label = val;
+      this.labelEvent.emit({ lbl: val, data: this.todoItem });
+    }
     this.edition = false;
   }
 
-  get itemData() : TodoItemData{
+  get itemData(): TodoItemData {
     return this.todoItem;
   }
 
-  get edit() : boolean{
+  get edit(): boolean {
     return this.edition;
   }
-  
-  set edit(val : boolean){
+
+  set edit(val: boolean) {
     this.edition = val;
   }
-  
+
 
   delete() {
     this.deleteEvent.emit(this.todoItem);
   }
-  
- 
+
+
+
   ngOnInit() {
   }
 

@@ -13,12 +13,15 @@ import { TodoService } from '../todo.service';
 export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData;
-     filtre: "all" | "active" | "completed";
+    private undoRedo: TodoListData[] = [];
+    private indiceUndoRedo: number = 0;
+    filtre: "all" | "active" | "completed";
 
 
 
     constructor(private todoService: TodoService) {
         todoService.getTodoListDataObservable().subscribe(tdl => this.todoList = tdl);
+        this.undoRedo.push(JSON.parse(JSON.stringify(this.todoList)));
         //this.filtre = "all";
     }
 
@@ -41,7 +44,7 @@ export class TodoListComponent implements OnInit {
     }
 
 
-    filterItems() : TodoItemData[]{
+    filterItems(): TodoItemData[] {
         if (this.filtre == "all") {
             return this.todoList.items;
         }
@@ -56,37 +59,76 @@ export class TodoListComponent implements OnInit {
 
     appendItem(label: string) {
 
-        if(label){
+        if (label) {
             this.todoService.appendItems({ label, isDone: false });
+            this.undoRedoSave();
         }
     }
 
     itemDone(item: TodoItemData, done: boolean) {
+
         this.todoService.setItemsDone(done, item);
+        this.undoRedoSave();
     }
 
     itemLabel(item: TodoItemData, label: string) {
+
         this.todoService.setItemsLabel(label, item);
+        this.undoRedoSave();
     }
 
     itemDelete(item: TodoItemData) {
+
         this.todoService.removeItems(item);
+        this.undoRedoSave();
     }
 
-    toggleAll(){
-        if(this.itemsNotDone.length===0 ){
-            this.todoService.setItemsDone(false,...this.items);
+    toggleAll() {
+
+        if (this.itemsNotDone.length === 0) {
+            this.todoService.setItemsDone(false, ...this.items);
         }
-        else{
-            this.todoService.setItemsDone(true,...this.itemsNotDone);
+        else {
+            this.todoService.setItemsDone(true, ...this.itemsNotDone);
+        }
+        this.undoRedoSave();
+    }
+
+    removeAll(items: TodoItemData[]) {
+
+        this.todoService.removeItems(...items);
+        this.undoRedoSave();
+
+    }
+    undoRedoSave() {
+        if (this.indiceUndoRedo !== this.undoRedo.length - 1) {
+         
+            while (this.indiceUndoRedo !== this.undoRedo.length - 1) {
+                this.undoRedo.pop();
+            }
+
+        }
+        this.undoRedo.push(JSON.parse(JSON.stringify(this.todoList)));
+        this.indiceUndoRedo++;
+        console.log(this.undoRedo);
+    }
+    undo() {
+
+        if (this.indiceUndoRedo > 0) {
+            this.indiceUndoRedo--;
+            this.todoService.undoRedo(JSON.parse(JSON.stringify(this.undoRedo[this.indiceUndoRedo])));
         }
     }
 
-    removeAll(items : TodoItemData[]){
-       
-            this.todoService.removeItems(...items);
-        
+    redo() {
+        if (this.indiceUndoRedo < this.undoRedo.length - 1) {
+            ++this.indiceUndoRedo;
+            this.todoService.undoRedo(JSON.parse(JSON.stringify(this.undoRedo[this.indiceUndoRedo])));
+
+        }
+
     }
+
 
     ngOnInit() {
     }
