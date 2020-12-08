@@ -5,3 +5,16 @@
     
 
 }
+
+.undoRedo{
+    position: relative;
+    top: -90px;
+    left: 480px;
+}
+
+
+.Redo{
+    position: relative;
+    top: -90px;
+    left: 490px;
+}

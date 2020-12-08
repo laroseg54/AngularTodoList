@@ -3,7 +3,8 @@
     <input 	class			= "toggle"
             type			= "checkbox"
             name			= "fait"
-            [(ngModel)] = "itemData.isDone"
+            (click) = "doneEvent.emit({b:!itemData.isDone,data:itemData})" 
+            [ngModel] = "itemData.isDone"
     />
     <label 	class="texte"   (dblclick)="edit=true">{{itemData.label}}</label>
     <button class="destroy" (click)="delete()" ></button>

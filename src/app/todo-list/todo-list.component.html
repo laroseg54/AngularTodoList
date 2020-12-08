@@ -1,51 +1,42 @@
 <section class="todoapp">
   <header class="header">
-  
+
     <h1>{{label}}</h1>
-   
+
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value=''">
-      <input  #newTodoInput
-              name        = "newTodoInput"
-              class       = "new-todo"
-              placeholder = "Que faire?"
-              autofocus />
+      <input #newTodoInput name="newTodoInput" class="new-todo" placeholder="Que faire?" autofocus />
     </form>
-    <button class="clearAll" *ngIf ="items.length>0" (click)="removeAll(items)" ><svg class="bi" width="26" height="26" fill="currentColor">
-      <use xlink:href="assets/bootstrap-icons.svg#trash"/>
-    </svg></button>
+    <button class="clearAll" *ngIf="items.length>0" (click)="removeAll(items)"><svg class="bi" width="26" height="26"
+        fill="currentColor">
+        <use xlink:href="assets/bootstrap-icons.svg#trash" />
+      </svg></button>
+    <button class="undoRedo" (click)="undo()">Undo</button>
+    <button class="Redo" (click)="redo()">Redo</button>
   </header>
   <section class="main">
-    <input  class="toggle-all"
-            type="checkbox"
-            name="toggleAll"
-            (click) = "toggleAll()"
-    />
-    <ul  class="todo-list">
-   
-        <app-todo-item *ngFor="let item of filterItems()" [todoItem]="item" (deleteEvent)="itemDelete($event)" ></app-todo-item>
+    <input class="toggle-all" type="checkbox" name="toggleAll" (click)="toggleAll()" />
+    <ul class="todo-list">
+
+      <app-todo-item *ngFor="let item of filterItems()" [todoItem]="item" (deleteEvent)="itemDelete($event)"
+        (labelEvent)="itemLabel($event.data,$event.lbl)" (doneEvent)="itemDone($event.data,$event.b)"></app-todo-item>
 
     </ul>
   </section>
   <footer *ngIf="this.items.length>0" class="footer">
-    <span class="todo-count" ><strong></strong>{{itemsNotDone.length}} restantes</span>
+    <span class="todo-count"><strong></strong>{{itemsNotDone.length}} restantes</span>
     <ul class="filters">
       <li>
-        <a  [ngClass]="{selected: filtre==='all'}"  (click)="filtre='all'">Tous</a>
+        <a [ngClass]="{selected: filtre==='all'}" (click)="filtre='all'">Tous</a>
       </li>
       <li>
         <a [ngClass]="{selected: filtre==='active'}" (click)="filtre='active'">Actifs</a>
       </li>
       <li>
-        <a  [ngClass]="{selected: filtre==='completed'}" (click)="filtre='completed'">Complétés</a>
+        <a [ngClass]="{selected: filtre==='completed'}" (click)="filtre='completed'">Complétés</a>
       </li>
     </ul>
-    <button class="clear-completed" *ngIf ="itemsDone.length>0" (click)="removeAll(itemsDone)" >Supprimer cochées</button>
-    
+    <button class="clear-completed" *ngIf="itemsDone.length>0" (click)="removeAll(itemsDone)">Supprimer cochées</button>
+
   </footer>
 </section>
-<hr/>
-
-
-
-
-
+<hr />
