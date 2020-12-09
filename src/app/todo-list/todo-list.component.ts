@@ -3,6 +3,7 @@ import { TodoListData } from '../dataTypes/TodoListData';
 import { TodoItemData } from '../dataTypes/TodoItemData';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
 import { TodoService } from '../todo.service';
+import { LocalStorageService } from '../localStorageService';
 
 @Component({
     selector: 'app-todo-list',
@@ -19,13 +20,23 @@ export class TodoListComponent implements OnInit {
 
 
 
-    constructor(private todoService: TodoService) {
+    constructor(private todoService: TodoService,private localStorageService: LocalStorageService) {
         todoService.getTodoListDataObservable().subscribe(tdl => this.todoList = tdl);
+        let td: TodoListData = localStorageService.loadFromLocalStorage()
+        if(td){
+            todoService.update(td);
+        }
         this.undoRedo.push(JSON.parse(JSON.stringify(this.todoList)));
+        
         //this.filtre = "all";
     }
 
-
+    get indiceUR() : number{
+        return this.indiceUndoRedo;
+    }
+    get redoPossible() : boolean{
+        return this.undoRedo.length-1!==this.indiceUndoRedo;
+    }
     get label(): string {
         return this.todoList.label;
     }
@@ -110,20 +121,22 @@ export class TodoListComponent implements OnInit {
         }
         this.undoRedo.push(JSON.parse(JSON.stringify(this.todoList)));
         this.indiceUndoRedo++;
-        console.log(this.undoRedo);
+        this.localStorageService.storeOnLocalStorage(this.todoList);
     }
     undo() {
 
         if (this.indiceUndoRedo > 0) {
             this.indiceUndoRedo--;
-            this.todoService.undoRedo(JSON.parse(JSON.stringify(this.undoRedo[this.indiceUndoRedo])));
+            this.todoService.update(JSON.parse(JSON.stringify(this.undoRedo[this.indiceUndoRedo])));
+            this.localStorageService.storeOnLocalStorage(this.todoList);
         }
     }
 
     redo() {
         if (this.indiceUndoRedo < this.undoRedo.length - 1) {
             ++this.indiceUndoRedo;
-            this.todoService.undoRedo(JSON.parse(JSON.stringify(this.undoRedo[this.indiceUndoRedo])));
+            this.todoService.update(JSON.parse(JSON.stringify(this.undoRedo[this.indiceUndoRedo])));
+            this.localStorageService.storeOnLocalStorage(this.todoList);
 
         }
 
