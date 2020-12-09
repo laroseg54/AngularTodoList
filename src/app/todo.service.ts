@@ -16,7 +16,7 @@ export class TodoService {
     return this.todoListSubject.asObservable();
   }
 
-  undoRedo(todo : TodoListData){
+  update(todo : TodoListData){
     this.todoListSubject.next( {
       label: todo.label,
       items: todo.items
