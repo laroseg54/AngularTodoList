@@ -121,7 +121,9 @@ input[type="checkbox"] {
 label[for='toggle-all'] {
   display: none;
 }
-
+agm-map {
+  height: 300px;
+}
 .toggle-all {
   position: absolute;
   top: -55px;
