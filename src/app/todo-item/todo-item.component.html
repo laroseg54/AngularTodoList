@@ -22,4 +22,14 @@
             {{newTextInput.focus()}}
             
   </form>
+  <form   (submit)="lieu = lieuInput.value"> 
+    <input   #lieuInput
+               [ngModel] = "lieu"
+            (blur) = "lieu = lieuInput.value;"
+         name    = "lieuInput"
+            class   = "edit"/>
+            {{lieuInput.focus()}}
+            
+  </form>
+  
 </li>

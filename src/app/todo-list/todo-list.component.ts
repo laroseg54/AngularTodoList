@@ -71,7 +71,7 @@ export class TodoListComponent implements OnInit {
     appendItem(label: string) {
 
         if (label) {
-            this.todoService.appendItems({ label, isDone: false });
+            this.todoService.appendItems({ label, isDone: false,lieu: ""  });
             this.undoRedoSave();
         }
     }

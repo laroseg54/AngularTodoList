@@ -32,6 +32,14 @@ export class TodoItemComponent implements OnInit {
     this.edition = false;
   }
 
+  get lieu(): string {
+    return this.todoItem.lieu;
+  }
+  set lieu(val: string) {
+      this.todoItem.lieu = val;
+  }
+
+
   get itemData(): TodoItemData {
     return this.todoItem;
   }
