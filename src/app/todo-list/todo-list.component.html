@@ -18,7 +18,7 @@
     <ul class="todo-list">
 
       <app-todo-item *ngFor="let item of filterItems()" [todoItem]="item" (deleteEvent)="itemDelete($event)"
-        (labelEvent)="itemLabel($event.data,$event.lbl)" (doneEvent)="itemDone($event.data,$event.b)"></app-todo-item>
+        (labelEvent)="itemLabel($event.data,$event.lbl)" (doneEvent)="itemDone($event.data,$event.b)" (lieuEvent)="itemLieu($event)"></app-todo-item>
 
     </ul>
   </section>
@@ -39,5 +39,7 @@
 
   </footer>
 </section>
-<agm-map [latitude]="45.188529" [longitude] ="5.724524"></agm-map>
+<agm-map [latitude]="45.188529" [longitude] ="5.724524">
+  <agm-marker *ngFor="let item of filterItems()" [latitude]="item.latitude" [longitude]="item.longitude" [markerDraggable]="false"></agm-marker>
+</agm-map>
 <hr />

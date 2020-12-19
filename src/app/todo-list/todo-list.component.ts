@@ -93,6 +93,11 @@ export class TodoListComponent implements OnInit {
         this.todoService.removeItems(item);
         this.undoRedoSave();
     }
+    itemLieu(item : TodoItemData){
+        this.todoService.setItemsLieu(item.lieu,item.longitude,item.latitude,item);
+        this.undoRedoSave();
+        
+    }
 
     toggleAll() {
 

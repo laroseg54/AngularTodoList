@@ -5,6 +5,7 @@ body {
   padding: 0;
 }
 
+
 button {
   margin: 0;
   padding: 0;
@@ -174,6 +175,22 @@ agm-map {
 }
 
 .todo-list li.editing .view {
+  display: none;
+}
+
+.todo-list li.editLieu {
+  border-bottom: none;
+  padding: 0;
+}
+
+.todo-list li.editLieu .lieu {
+  display: block;
+  width: 506px;
+  padding: 13px 17px 12px 17px;
+  margin: 0 0 0 43px;
+}
+
+.todo-list li.editLieu .view {
   display: none;
 }
 
