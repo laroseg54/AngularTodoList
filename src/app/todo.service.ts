@@ -36,7 +36,7 @@ export class TodoService {
     const tdl = this.todoListSubject.getValue();
     this.todoListSubject.next( {
       label: tdl.label,
-      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label, isDone: I.isDone, lieu : ""}) )
+      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label, isDone: I.isDone,lieu : I.lieu, longitude:I.longitude,latitude:I.latitude}) )
     });
   }
 
@@ -44,7 +44,7 @@ export class TodoService {
     const tdl = this.todoListSubject.getValue();
     this.todoListSubject.next( {
       label: tdl.label,
-      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label: I.label, isDone, lieu :""}) )
+      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label: I.label, isDone, lieu : I.lieu, longitude:I.longitude,latitude:I.latitude}) )
     });
   }
 

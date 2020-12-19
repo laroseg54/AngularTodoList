@@ -39,7 +39,18 @@
 
   </footer>
 </section>
-<agm-map [latitude]="45.188529" [longitude] ="5.724524">
-  <agm-marker *ngFor="let item of filterItems()" [latitude]="item.latitude" [longitude]="item.longitude" [markerDraggable]="false"></agm-marker>
+<agm-map  [latitude]="latitude" [longitude] ="longitude" [zoom] = "9">
+  <agm-marker *ngFor="let item of filterItems()" [latitude]="item.latitude" [longitude]="item.longitude" [markerDraggable]="false"  
+  [iconUrl]="!item.isDone?'http://maps.google.com/mapfiles/ms/icons/blue-dot.png':'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"
+   (mouseOver)="showInfo()"  (mouseOut)="hideInfo()">
+    <agm-info-window [disableAutoPan]="false" [isOpen]="show">
+
+      <div>
+          {{item.label}}
+      </div>
+
+  </agm-info-window>
+  </agm-marker>
 </agm-map>
+
 <hr />

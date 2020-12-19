@@ -48,7 +48,7 @@ var TodoService = /** @class */ (function () {
         var tdl = this.todoListSubject.getValue();
         this.todoListSubject.next({
             label: tdl.label,
-            items: tdl.items.map(function (I) { return items.indexOf(I) === -1 ? I : ({ label: label, isDone: I.isDone, lieu: "" }); })
+            items: tdl.items.map(function (I) { return items.indexOf(I) === -1 ? I : ({ label: label, isDone: I.isDone, lieu: I.lieu, longitude: I.longitude, latitude: I.latitude }); })
         });
     };
     TodoService.prototype.setItemsDone = function (isDone) {
@@ -59,7 +59,7 @@ var TodoService = /** @class */ (function () {
         var tdl = this.todoListSubject.getValue();
         this.todoListSubject.next({
             label: tdl.label,
-            items: tdl.items.map(function (I) { return items.indexOf(I) === -1 ? I : ({ label: I.label, isDone: isDone, lieu: "" }); })
+            items: tdl.items.map(function (I) { return items.indexOf(I) === -1 ? I : ({ label: I.label, isDone: isDone, lieu: I.lieu, longitude: I.longitude, latitude: I.latitude }); })
         });
     };
     TodoService.prototype.appendItems = function () {

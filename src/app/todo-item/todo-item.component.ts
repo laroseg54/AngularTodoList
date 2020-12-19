@@ -41,7 +41,6 @@ export class TodoItemComponent implements OnInit {
   }
   set lieu(val: string) {
     this.todoItem.lieu = val;
-    this.lieuEvent.emit;
   
   }
 

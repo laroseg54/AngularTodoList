@@ -37,7 +37,6 @@ var TodoItemComponent = /** @class */ (function () {
         },
         set: function (val) {
             this.todoItem.lieu = val;
-            this.lieuEvent.emit;
         },
         enumerable: false,
         configurable: true

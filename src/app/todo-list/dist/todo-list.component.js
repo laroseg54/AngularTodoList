@@ -145,7 +145,34 @@ var TodoListComponent = /** @class */ (function () {
             this.localStorageService.storeOnLocalStorage(this.todoList);
         }
     };
+    TodoListComponent.prototype.showInfo = function () {
+        this.show = true;
+    };
+    TodoListComponent.prototype.hideInfo = function () {
+        this.show = false;
+    };
+    Object.defineProperty(TodoListComponent.prototype, "CurrentLocation", {
+        // fonction pour centrer la carte sur la position de l'utilisateur au démarrage l'appli mais ça ne fonctionne pas je ne sais pas pourquoi , o est bien mis
+        // à jour mais sa valeur ne semble pas être renvoyée
+        get: function () {
+            var o = { latitude: 45.1667, longitude: 5.7167 };
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    o.latitude = position.coords.latitude;
+                    o.longitude = position.coords.longitude;
+                    console.log(o);
+                    return o;
+                });
+            }
+            return o;
+        },
+        enumerable: false,
+        configurable: true
+    });
     TodoListComponent.prototype.ngOnInit = function () {
+        var o = this.CurrentLocation;
+        this.latitude = o.latitude;
+        this.longitude = o.longitude;
     };
     TodoListComponent = __decorate([
         core_1.Component({
