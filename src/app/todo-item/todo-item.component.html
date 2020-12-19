@@ -1,4 +1,4 @@
-<li [ngClass]="{'editing': edit, 'completed': itemData.isDone}">
+<li [ngClass]="{'editing': edit, 'completed': itemData.isDone,'editLieu':editLieu}">
   <div class="view">
     <input 	class			= "toggle"
             type			= "checkbox"
@@ -8,6 +8,10 @@
     />
     <label 	class="texte"   (dblclick)="edit=true">{{itemData.label}}</label>
     <button class="destroy" (click)="delete()" ></button>
+    <button class="mapButton" (click)="editLieu=true"><svg class="bi" width="26" height="26"
+      fill="currentColor">
+      <use xlink:href="assets/bootstrap-icons.svg#map" />
+    </svg></button>
   </div>
   <form   (submit)="label = newTextInput.value"> 
     <input   #newTextInput
@@ -18,4 +22,14 @@
             {{newTextInput.focus()}}
             
   </form>
+  <form  (submit)="editLieu=false; lieuEvent.emit(itemData)" > 
+    <input   #lieuInput
+            [ngModel] = "lieu"
+            name    = "lieuInput"
+            placeholder="Entrez une adresse/un lieu"
+            class   = "lieu"/>
+            {{lieuInput.focus()}}
+            
+  </form>
+  
 </li>

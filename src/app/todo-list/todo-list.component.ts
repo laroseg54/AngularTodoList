@@ -17,17 +17,21 @@ export class TodoListComponent implements OnInit {
     private undoRedo: TodoListData[] = [];
     private indiceUndoRedo: number = 0;
     filtre: "all" | "active" | "completed";
-
+    latitude: number;
+    longitude: number;
+    show: boolean // popriété pour cacher/afficher la fenêtre d'info agm quand l'utilisateur passe ou enleve la souris d'un marker;
+   
 
 
     constructor(private todoService: TodoService,private localStorageService: LocalStorageService) {
         todoService.getTodoListDataObservable().subscribe(tdl => this.todoList = tdl);
+        
         let td: TodoListData = localStorageService.loadFromLocalStorage()
         if(td){
             todoService.update(td);
         }
         this.undoRedo.push(JSON.parse(JSON.stringify(this.todoList)));
-        
+    
         //this.filtre = "all";
     }
 
@@ -71,7 +75,7 @@ export class TodoListComponent implements OnInit {
     appendItem(label: string) {
 
         if (label) {
-            this.todoService.appendItems({ label, isDone: false });
+            this.todoService.appendItems({ label, isDone: false,lieu: ""  });
             this.undoRedoSave();
         }
     }
@@ -92,6 +96,11 @@ export class TodoListComponent implements OnInit {
 
         this.todoService.removeItems(item);
         this.undoRedoSave();
+    }
+    itemLieu(item : TodoItemData){
+        this.todoService.setItemsLieu(item.lieu,item.longitude,item.latitude,item);
+        this.undoRedoSave();
+        
     }
 
     toggleAll() {
@@ -141,9 +150,39 @@ export class TodoListComponent implements OnInit {
         }
 
     }
+    showInfo(){
+        this.show = true;
 
+    
+      }
+    
+      hideInfo(){
+        this.show = false;
+     
+      }
+    // fonction pour centrer la carte sur la position de l'utilisateur au démarrage l'appli mais ça ne fonctionne pas je ne sais pas pourquoi , o est bien mis
+    // à jour mais sa valeur ne semble pas être renvoyée
+    get CurrentLocation() : {latitude : number,longitude : number} {
+        let o :{latitude : number,longitude : number} = {latitude : 45.1667, longitude: 5.7167} ;
+        
+        if ('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            
+            o.latitude = position.coords.latitude;
+            o.longitude = position.coords.longitude;
+            console.log(o);
+            return o;
+           
+          });
+        }
+        
+        return o;
+    }
 
     ngOnInit() {
+       let o = this.CurrentLocation;
+       this.latitude = o.latitude;
+       this.longitude = o.longitude;
     }
 
 

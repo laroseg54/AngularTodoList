@@ -6,7 +6,7 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
 import {TodoService} from './todo.service';
 import {FormsModule} from '@angular/forms';
 import { LocalStorageService } from './localStorageService';
-
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { LocalStorageService } from './localStorageService';
     TodoItemComponent
   ],
   imports: [
-    BrowserModule, FormsModule
+    BrowserModule, FormsModule,AgmCoreModule.forRoot({apiKey:'',libraries: ['places']})
   ],
   
   providers: [TodoService,LocalStorageService],

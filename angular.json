@@ -22,8 +22,11 @@
             ],
             "styles": [
               "src/styles.css"
+              
+
             ],
-            "scripts": []
+            "scripts": [
+            ]
           },
           "configurations": {
             "production": {
@@ -76,7 +79,7 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico",
+              "src/favicon.ico"
             ]
           }
         },

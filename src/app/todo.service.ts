@@ -23,12 +23,20 @@ export class TodoService {
     });
   }
 
- 
+  
+  setItemsLieu(lieu : string , longitude: number , latitude : number, ...items: TodoItemData[] ) {
+    const tdl = this.todoListSubject.getValue();
+    this.todoListSubject.next( {
+      label: tdl.label,
+      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label : I.label, isDone: I.isDone, lieu,longitude,latitude}) )
+    });
+  }
+
   setItemsLabel(label: string, ...items: TodoItemData[] ) {
     const tdl = this.todoListSubject.getValue();
     this.todoListSubject.next( {
       label: tdl.label,
-      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label, isDone: I.isDone}) )
+      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label, isDone: I.isDone,lieu : I.lieu, longitude:I.longitude,latitude:I.latitude}) )
     });
   }
 
@@ -36,7 +44,7 @@ export class TodoService {
     const tdl = this.todoListSubject.getValue();
     this.todoListSubject.next( {
       label: tdl.label,
-      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label: I.label, isDone}) )
+      items: tdl.items.map( I => items.indexOf(I) === -1 ? I : ({label: I.label, isDone, lieu : I.lieu, longitude:I.longitude,latitude:I.latitude}) )
     });
   }
 
