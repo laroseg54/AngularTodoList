@@ -27,7 +27,7 @@ var AppModule = /** @class */ (function () {
                 todo_item_component_1.TodoItemComponent
             ],
             imports: [
-                platform_browser_1.BrowserModule, forms_1.FormsModule, core_2.AgmCoreModule.forRoot({ apiKey: 'AIzaSyDkDM5CCdMcbnTHesqNkwguLWIUsWh-x3Q', libraries: ['places'] })
+                platform_browser_1.BrowserModule, forms_1.FormsModule, core_2.AgmCoreModule.forRoot({ apiKey: '', libraries: ['places'] })
             ],
             providers: [todo_service_1.TodoService, localStorageService_1.LocalStorageService],
             bootstrap: [app_component_1.AppComponent]
