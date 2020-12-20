@@ -15,9 +15,9 @@ import {AgmCoreModule} from '@agm/core';
     TodoItemComponent
   ],
   imports: [
-    BrowserModule, FormsModule,AgmCoreModule.forRoot({apiKey:'',libraries: ['places']})
+    BrowserModule, FormsModule,AgmCoreModule.forRoot({apiKey:'AIzaSyDkDM5CCdMcbnTHesqNkwguLWIUsWh-x3Q',libraries: ['places']})
   ],
-  
+
   providers: [TodoService,LocalStorageService],
   bootstrap: [AppComponent]
 })
