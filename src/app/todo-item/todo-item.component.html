@@ -3,7 +3,7 @@
     <input 	class			= "toggle"
             type			= "checkbox"
             name			= "fait"
-            (click) = "doneEvent.emit({b:!itemData.isDone,data:itemData})" 
+            (click) = "doneEvent.emit({b:!itemData.isDone,data:itemData})"
             [ngModel] = "itemData.isDone"
     />
     <label 	class="texte"   (dblclick)="edit=true">{{itemData.label}}</label>
@@ -13,23 +13,23 @@
       <use xlink:href="assets/bootstrap-icons.svg#map" />
     </svg></button>
   </div>
-  <form   (submit)="label = newTextInput.value"> 
+  <form   (submit)="label = newTextInput.value">
     <input   #newTextInput
             name    = "newTextInput"
             [ngModel] = "label"
             (blur) = "label = newTextInput.value;"
             class   = "edit"/>
             {{newTextInput.focus()}}
-            
+
   </form>
-  <form  (submit)="editLieu=false; lieuEvent.emit(itemData)" > 
+  <form  (submit)="editLieu=false; lieuEvent.emit(itemData)" >
     <input   #lieuInput
             [ngModel] = "lieu"
             name    = "lieuInput"
             placeholder="Entrez une adresse/un lieu"
             class   = "lieu"/>
             {{lieuInput.focus()}}
-            
+
   </form>
-  
+
 </li>
