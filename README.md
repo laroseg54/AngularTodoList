@@ -30,7 +30,7 @@
   <li>Changer la location d'un item fera changer le marqueur de place sur la map</li>
 </ul>
 
-<h3>Difficultés recontrés</h3>
+<h3>Difficultés rencontrées</h3>
  <p>Pas vraiment de difficulté rencontré mis à part qu'au départ je voulais afficher la map dans une div pop up mais je n'ai jamais réussi à le faire sans casser tout le style de la todolist</p>
  <p>j'ai donc laissé la map en bas. Egalement toujours avec la map , je n'ai jamais réussi à la faire centrer sur la position de l'utilsateur à l'ouverture de la page car la fonction qui devrait marcher sur </p>
  <p> le papier se comporte bizarrement (je l'ai malgré tout laissée dans le code) </p> 
